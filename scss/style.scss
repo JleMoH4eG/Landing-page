@@ -236,7 +236,7 @@ body.lock {
 		font-family: Gilroy-Bold;
 		color: #828282;
 		transition: all 0.4s ease 0s;
-		@media (min-width: $w3) {
+		@media (hover: hover) {
 			&:hover {
 				color: #070707;
 				transform: scale(1.1) translate(1px, 3px);
@@ -454,7 +454,7 @@ body.lock {
 			transition: all 0.4s ease 0s;
 			text-decoration: underline;
 		}
-		@media (min-width: $w3) {
+		@media (hover: hover) {
 			& a:hover {
 				color: #f00039;
 				transform: scale(1.1) translate(1px, 3px);
@@ -511,7 +511,7 @@ body.lock {
 			height: 100%;
 			display: block;
 		}
-		@media (min-width: $w3) {
+		@media (hover: hover) {
 			&:hover {
 				transform: scale(1.1) translate(1px, 3px);
 			}
@@ -557,7 +557,7 @@ body.lock {
 		margin-bottom: 45px;
 		.icon-linkdln {
 			transition: all 0.3s ease 0s;
-			@media (min-width: $w3) {
+			@media (hover: hover) {
 				&:hover {
 					transform: rotate(360deg);
 					color: #828282;
@@ -570,7 +570,7 @@ body.lock {
 		}
 		.icon-instagram {
 			transition: all 0.3s ease 0s;
-			@media (min-width: $w3) {
+			@media (hover: hover) {
 				&:hover {
 					transform: rotate(-360deg);
 					color: #828282;
@@ -583,7 +583,7 @@ body.lock {
 		}
 		.icon-behance {
 			transition: all 0.3s ease 0s;
-			@media (min-width: $w3) {
+			@media (hover: hover) {
 				&:hover {
 					transform: rotate(360deg);
 					color: #828282;
@@ -596,7 +596,7 @@ body.lock {
 		}
 		.icon-dribble {
 			transition: all 0.3s ease 0s;
-			@media (min-width: $w3) {
+			@media (hover: hover) {
 				&:hover {
 					transform: rotate(-360deg);
 					color: #828282;
