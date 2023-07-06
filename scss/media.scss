@@ -1,0 +1,51 @@
+//header
+//<800px
+@media (max-width: 50em) {
+	.header {
+		display: none;
+	}
+}
+
+//person
+//<425px
+@media (max-width: 26.5625em) {
+	.person {
+		&__name {
+			margin-bottom: 0.4rem;
+		}
+		&__info {
+			flex-direction: column;
+		}
+	}
+}
+
+//skills
+//<668px
+@media (max-width: 41.75em) {
+	.skills__programs {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+}
+//<432px
+@media (max-width: 27em) {
+	.skills__programs {
+		justify-content: center;
+	}
+}
+
+//contacts
+//<425px
+@media (max-width: 26.5625em) {
+	.contacts__button {
+		width: 100%;
+	}
+}
+
+//burger-menu
+//<780px
+@media (max-width: 48.75em) {
+	.burger-menu {
+		display: block;
+	}
+}

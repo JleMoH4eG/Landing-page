@@ -1,0 +1,39 @@
+@media (max-width: 50em) {
+  .header {
+    display: none;
+  }
+}
+@media (max-width: 26.5625em) {
+  .person__name {
+    margin-bottom: 0.4rem;
+  }
+  .person__info {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+@media (max-width: 41.75em) {
+  .skills__programs {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 27em) {
+  .skills__programs {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+@media (max-width: 26.5625em) {
+  .contacts__button {
+    width: 100%;
+  }
+}
+@media (max-width: 48.75em) {
+  .burger-menu {
+    display: block;
+  }
+}

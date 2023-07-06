@@ -1,3 +1,53 @@
+/*Перевод в em, rem, %*/
+//В %
+@function prc($px, $px2) {
+	$result: $px/$px2 * 100%;
+	@return $result;
+}
+// $px - объект в макете
+// $px2 - родитель данного объекта
+
+//В rem
+@function rem($px) {
+	$result: $px/16 + rem;
+	@return $result;
+}
+
+//В em
+@function em($px, $px2) {
+	$result: $px/$px2 + em;
+	@return $result;
+}
+// $px - объект в макете
+// $px2 - размер шрифта объекта(свой или унаследованный)
+
+/*Адаптивное свойство*/
+$maxWidthTemplate: 1440;
+$maxWidthContainer: 1280;
+
+@mixin adaptive-value($property, $startSize, $minSize, $type) {
+	$addSize: $startSize/16 - $minSize/16;
+	@if $type==1 {
+		//Только если меньше контейнера
+		#{$property}: $startSize/16 + rem;
+		@media (max-width: #{$maxWidthContainer/16 + em}) {
+			#{$property}: calc(#{$minSize/16 + rem} + #{$addSize} * ((100vw - 26.875rem) / #{$maxWidthContainer/16 - 26.875}));
+		}
+	}
+	@else if $type==2 {
+		//Только если больше контейнера
+		#{$property}: $startSize/16 + rem;
+		@media (min-width: #{$maxWidthContainer/16 + em}) {
+			#{$property}: calc(#{$minSize/16 + rem} + #{$addSize} * ((100vw - 26.875rem) / #{$maxWidthTemplate/16 - 26.875}));
+		}
+	}
+	@else {
+		//Всегда
+		#{$property}: calc(#{$minSize/16 + rem} + #{$addSize} * ((100vw - 26.875rem) / #{$maxWidthTemplate/16 - 26.875}));
+	}
+}
+
+
 /*Обнуляющий стиль*/
 
 *{
@@ -19,9 +69,7 @@ html,body{
 	scroll-behavior: smooth;
 	height: 100%;
 	width: 100%;
-	font-size: 100%;
 	line-height: 1;
-	font-size: 14px;
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
@@ -65,26 +113,34 @@ img{vertical-align: top;}
 
 /*Сетка*/
 
-$w1: 1920px;
-$w2: 1005px;
-$w3: 768px;
-$w4: 490px;
-
 .container {
-	padding: 0 30px;
-	max-width: $w1;
+	padding: 0 170px;
+	max-width: 1280px;
 	margin: 0 auto;
 }
 
-@media (max-width: $w1) {
+//1130px
+@media (max-width: 70.625em) {
 	.container {
-		max-width: $w2;
+		padding: 0 100px;
 	}
 }
-
-@media (max-width: $w2) {
+//800px
+@media (max-width: 50em) {
 	.container {
-		max-width: $w3;
+		padding: 0 50px;
+	}
+}
+//530px
+@media (max-width: 33.125em) {
+	.container {
+		padding: 0 33px;
+	}
+}
+//<375px
+@media (max-width: 21.5625em) {
+	.container {
+		padding: 0 10px;
 	}
 }
 
@@ -153,12 +209,6 @@ $w4: 490px;
 	}
 }
 
-@media (max-width: $w3) {
-	.burger-menu {
-		display: block;
-	}
-}
-
 /*Блок скрола при активном меню*/
 
 body.lock {
@@ -175,13 +225,13 @@ body.lock {
 	height: 100%;
 	background: #ffffff;
 	z-index: 1;
-	padding: 66px 0 0 26px;
+	font-size: rem(34);
+	padding: em(66, 34) 0 0 em(26, 34);
 	overflow: auto;
 	transition: all 0.65s ease-out 0s;
 	&__links {}
 	&__link {
-		margin-bottom: 68px;
-		font-size: 34px;
+		margin-bottom: em(68, 34);
 		font-family: Gilroy-Bold;
 		color: #828282;
 		&:last-child {
@@ -200,27 +250,25 @@ body.lock {
 }
 
 /*Общее*/
+/**************************************************/
 
-.container {
-}
 .title {
-	font-size: 34px;
+	font-size: rem(34);
 	font-family: Gilroy-Bold;
 	text-align: center;
 }
-.main {
-}
 
-/*Шапка*/
+/**************************************************/
 
 .header {
-	height: 80px;
-	width: 100%;
 	&__links {
 		display: flex;
 		justify-content: space-between;
 		position: relative;
-		padding: 33px 0 33px 0;
+		font-size: rem(18);
+		font-family: Gilroy-Bold;
+		color: #828282;
+		padding: em(33, 18) 0;
 		&:after {//полоска под пунктами меню
 			content: '';
 			width: 100%;
@@ -232,9 +280,6 @@ body.lock {
 		}
 	}
 	&__link {
-		font-size: 18px;
-		font-family: Gilroy-Bold;
-		color: #828282;
 		transition: all 0.4s ease 0s;
 		@media (hover: hover) {
 			&:hover {
@@ -247,38 +292,28 @@ body.lock {
 			transition: all 0.1s ease 0s;
 		}
 	}
-	&__line {
-		width: 100%;
-		height: 2px;
-		background: #828282;
-	}
 }
 
-@media (max-width: $w3) {
-	.header {
-		display: none;
-	}
-}
-
-/*Контент*/
+/**************************************************/
 
 .person {
-	padding: 40px 0 104px 0;
+	padding-top: rem(40);
+	@include adaptive-value("padding-bottom", 104, 83, 1);
 	&__info {
 		display: flex;
 		justify-content: space-between;
-		margin-bottom: 50px;
+		@include adaptive-value("margin-bottom", 50, 25, 1);
 	}
 	&__name {
-		font-size: 47px;
-		line-height: 59px;
+		font-size: rem(47);
+		line-height: normal;
 		font-family: Gilroy-Bold;
 	}
 	&__text {
 		margin-top: auto;
-		font-size: 18px;
+		font-size: rem(18);
 		font-family: Gilroy-Medium;
-		line-height: 22px;
+		line-height: normal;
 	}
 	&__photo {
 		position: relative;
@@ -292,82 +327,61 @@ body.lock {
 	}
 }
 
-@media (max-width: $w3) {
-	.person {
-		padding: 65px 0 83px 0;
-		&__info {
-			flex-direction: column;
-			justify-content: none;
-			margin-bottom: 37px;
-		}
-		&__name {
-			margin-bottom: 23px;
-		}
-	}
-}
+/**************************************************/
 
 .about {
-	padding: 120px 0 107px 0;
+	@include adaptive-value("padding-top", 120, 81, 1);
+	@include adaptive-value("padding-bottom", 107, 76, 1);
 	background: #F6F6F6;
 	&__body {}
 	&__title {
-		margin-bottom: 35px;
+		@include adaptive-value("margin-bottom", 17, 29, 1);
 	}
 	&__text {
 		text-align: center;
-		font-size: 18px;
-		line-height: 22px;
+		font-size: rem(18);
+		line-height: normal;
 		font-family: Gilroy-Medium;
 		margin-bottom: 50px;
 		&:last-child {
-			margin-bottom: 0;
+			@include adaptive-value("margin-bottom", 50, 45, 1);
 		}
 	}
 }
 
-@media (max-width: $w3) {
-	.about {
-		padding: 81px 0 76px 0;
-		&__text {
-			margin-bottom: 45px;
-		}
-		&__title {
-			margin-bottom: 45px;
-		}
-	}
-	.pc-br {
-		display: none;
-	}
-}
+/**************************************************/
 
 .skills {
-	padding: 91px 0 110px 0;
+	@include adaptive-value("padding-top", 91, 83, 1);
+	@include adaptive-value("padding-bottom", 110, 98, 1);
 	&__body {}
 	&__title {
-		margin-bottom: 69px;
+		@include adaptive-value("margin-bottom", 69, 50, 1);
 	}
 	&__text {
 		text-align: center;
-		font-size: 18px;
+		font-size: rem(18);
 		font-family: Gilroy-Medium;
-		margin-bottom: 83px;
+		@include adaptive-value("margin-bottom", 83, 70, 1);
 	}
 	&__programs {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
+		column-gap: 35px;
+		row-gap: em(80, 16);
 	}
 	&__item {
 		display: flex;
 		flex-direction: column;
-		flex: 0 0 166px;
+		flex: 0 0 em(166, 16);
 	}
 	&__label {
-		width: 89px;
-		height: 88px;
+		width: em(89, 16);
+		height: em(88, 16);
 		position: relative;
-		margin: 0 auto 24px auto;
+		margin: 0 auto em(24, 16) auto;
 		& img {
 			width: 100%;
 			height: 100%;
@@ -379,17 +393,17 @@ body.lock {
 	}
 	.figma {
 		.skills__label {
-			width: 58px;
+			width: em(58, 16);
 		}
 		.skills__program-name {
-			margin-bottom: 54px;
+			margin-bottom: em(54, 14);
 		}
 	}
 	&__program-name {
-		font-size: 14px;
+		font-size: rem(14);
 		font-family: Gilroy-Bold;
 		color: #828282;
-		margin-bottom: 40px;
+		margin-bottom: em(40, 14);
 		text-align: center;
 	}
 	&__stars {
@@ -398,47 +412,25 @@ body.lock {
 	}
 }
 
-@media (max-width: $w2) {
-	.skills {
-		padding: 91px 0 30px 0;
-		&__programs {
-		}
-		&__item {
-			margin: 0 auto 80px auto;
-			padding: 0 20px 0 20px;
-			flex: 0 0 206px;
-		}
-	}
-}
-
-@media (max-width: $w3) {
-	.skills {
-		padding: 83px 0 19px 0;
-		&__title {
-			margin-bottom: 50px;
-		}
-		&__text {
-			margin-bottom: 71px;
-		}
-	}
-}
+/**************************************************/
 
 .portfolio {
-	padding: 113px 0 92px 0;
+	@include adaptive-value("padding-top", 113, 81, 1);
+	@include adaptive-value("padding-bottom", 92, 81, 1);
 	background: #F6F6F6;
 	&__body {}
 	&__title {
-		margin-bottom: 47px;
+		@include adaptive-value("margin-bottom", 47, 64, 1);
 	}
 	&__item {
-		margin-bottom: 99px;
+		@include adaptive-value("margin-bottom", 99, 77, 1);
 		&:last-child {
 			margin-bottom: 0;
 		}
 	}
 	&__img {
 		width: 100%;
-		margin-bottom: 45px;
+		@include adaptive-value("margin-bottom", 44, 33, 1);
 		& img {
 			width: 100%;
 			height: 100%;
@@ -447,7 +439,7 @@ body.lock {
 	}
 	&__link {
 		text-align: center;
-		font-size: 18px;
+		font-size: rem(18);
 		font-family: Gilroy-Medium;
 		& a {
 			display: inline-block;
@@ -467,42 +459,30 @@ body.lock {
 	}
 }
 
-@media (max-width: $w3) {
-	.portfolio {
-		padding: 81px 0;
-		&__title {
-			margin-bottom: 65px;
-		}
-		&__img {
-			margin-bottom: 33px;
-		}
-		&__item {
-			margin-bottom: 78px;
-		}
-	}
-}
+/**************************************************/
 
 .contacts {
-	padding: 114px 0 86px 0;
+	@include adaptive-value("padding-top", 114, 82, 1);
+	@include adaptive-value("padding-bottom", 86, 48, 1);
 	&__title {
-		margin-bottom: 37px;
+		@include adaptive-value("margin-bottom", 37, 44, 1);
 	}
 	&__text {
-		font-size: 18px;
+		font-size: rem(18);
 		font-family: Gilroy-Medium;
 		text-align: center;
-		line-height: 22px;
+		line-height: normal;
 		margin-bottom: 38px;
 	}
 	&__button {
 		margin: 0 auto;
-		width: 180px;
-		height: 42px;
+		width: em(180, 18);
+		height: em(42, 18);
 		text-align: center;
 		background: #070707;
 		border-radius: 21px;
 		color: #ffffff;
-		font-size: 18px;
+		font-size: rem(18);
 		font-family: Gilroy-Bold;
 		transition: all 0.4s ease 0s;
 		& a {
@@ -524,37 +504,27 @@ body.lock {
 	}
 }
 
-@media (max-width: $w3) {
-	.contacts {
-		padding: 82px 0 48px 0;
-		&__title {
-			margin-bottom: 45px;
-		}
-		&__text {
-			margin-bottom: 45px;
-		}
-	}
-}
+/**************************************************/
 
-/*Подвал*/
 
 .footer {
-	padding-bottom: 123px;
+	@include adaptive-value("padding-bottom", 123, 90, 1);
 	&__text {
-		font-size: 14px;
+		@include adaptive-value("font-size", 14, 18, 1);
 		font-family: Gilroy-Medium;
-		line-height: 17px;
+		line-height: normal;
 		color: #828282;
 		text-align: center;
 	}
 	&__icons {
 		display: flex;
 		justify-content: space-between;
-		max-width: 342px;
+		max-width: 400px;
+		padding: 0 30px;
 		margin: 0 auto;
-		font-size: 38px;
+		font-size: rem(38);
 		font-weight: bold;
-		margin-bottom: 45px;
+		margin-bottom: rem(45);
 		.icon-linkdln {
 			transition: all 0.3s ease 0s;
 			@media (hover: hover) {
@@ -607,11 +577,5 @@ body.lock {
 				transition: all 0.1s ease 0s;
 			}
 		}
-	}
-}
-
-@media (max-width: $w3) {
-	.footer {
-		padding-bottom: 115px;
 	}
 }

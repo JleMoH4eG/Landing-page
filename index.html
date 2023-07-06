@@ -6,8 +6,10 @@
 	<title>Landing page</title>
 	<link rel="stylesheet" href="css/icons-font.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/media.css">
 </head>
 <body>
+
 	<div class="burger-menu">
 		<span></span>
 	</div>
@@ -32,68 +34,91 @@
 			</ul>
 		</nav>
 	</div>
+
 	<header class="header">
 		<div class="container">
+
 			<nav>
 				<ul class="header__links">
 					<li class="header__link">
 						<a href="#Home">Home</a>
 					</li>
+
 					<li class="header__link">
 						<a href="#About-me">About me</a>
 					</li>
+
 					<li class="header__link">
 						<a href="#Skills">Skills</a>
 					</li>
+
 					<li class="header__link">
 						<a href="#Portfolio">Portfolio</a>
 					</li>
+
 					<li class="header__link">
 						<a href="#Contacts">Contacts</a>
 					</li>
 				</ul>
 			</nav>
+
 		</div>
 	</header>
+
 	<main class="main">
+
+		<!--person-->
 		<section id="Home" class="person">
 			<div class="container">
+
 				<div class="person__info">
 					<h1 class="person__name">
 						Denis <br>Novik
 					</h1>
+
 					<p class="person__text">
 						UX | UI designer <br>24 years old, Minsk
 					</p>
 				</div>
+
 				<picture class="person__photo">
 					<source srcset="img/person/person-photo-pc.jpg" type="image/jpeg" media="(min-width:490px)" >
 					<source srcset="img/person/person-photo-mobile.jpg" type="image/jpeg" media="(max-width:490px)">
 					<img src="img/person/person-photo-pc.jpg">
 				</picture>
+
 			</div>
 		</section>
+
+		<!--about-->
 		<section id="About-me" class="about">
 			<div class="container">
+
 				<div class="about__body">
 					<h2 class="about__title title">
 						About me
 					</h2>
+
 					<p class="about__text">
 						Hi, I'm Denis – UX/UI designer from Minsk. <br class="pc-br">
 						I'm interested in design and everything connected with it.
 					</p>
+
 					<p class="about__text">
 						I'm studying at courses "Web and mobile design <br class="pc-br">
 						interfaces" in IT-Academy.
 					</p>
+
 					<p class="about__text">
 						Ready to implement excellent projects <br class="pc-br">
 						with wonderful people.
 					</p>
 				</div>
+
 			</div>
 		</section>
+
+		<!--skills-->
 		<section id="Skills" class="skills">
 			<div class="container">
 				<div class="skills__body">
@@ -168,6 +193,8 @@
 				</div>
 			</div>
 		</section>
+
+		<!--portfolio-->
 		<section id="Portfolio" class="portfolio">
 			<div class="container">
 				<div class="portfolio__body">
@@ -201,6 +228,8 @@
 				</div>
 			</div>
 		</section>
+
+		<!--contacts-->
 		<section id="Contacts" class="contacts">
 			<div class="container">
 				<h2 class="contacts__title title">
@@ -215,6 +244,7 @@
 			</div>
 		</section>
 	</main>
+
 	<footer class="footer">
 		<div class="container">
 			<div class="footer__icons">
@@ -228,8 +258,10 @@
 			</p>
 		</div>
 	</footer>
+
 	<!--Подключение JS-->
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 	<script src="js/script.js"></script>
+
 </body>
 </html>
